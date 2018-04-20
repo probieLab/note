@@ -100,6 +100,7 @@ iframe {
 	display: flex;
 	flex-direction: column;
 	height: auto;
+	max-height: 80%;
 	padding: 10px;
 }
 

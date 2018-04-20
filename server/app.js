@@ -15,7 +15,7 @@ var urlencodeParser = bodyParser.urlencoded({
     limit: '1024mb'
 })
 app.use(bodyParser.json({ limit: '1024mb' }));
-var staticSource = 'C:/Users/79263/Desktop/project/classNote';
+var staticSource = 'C:/Users/79263/Desktop/project/note';
 app.use(express.static(staticSource));
 app.get('/index.html', function (req, res) {
     res.send(__dirname + "/" + "index.html");

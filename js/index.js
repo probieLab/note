@@ -12,11 +12,11 @@ window.onload = function () {
 	xmlHTTP.setRequestHeader("Content-type", "application/json;charset=UTF-8");
 	xmlHTTP.send(null);
 	xmlHTTP.onreadystatechange = (data) => {
-
 		if (xmlHTTP.readyState == 4) {
 			let result = data.srcElement.response;
 			result = eval(result);
-			result = JSON.parse(result)
+			console.log(result)			
+			// result = JSON.parse(result)
 			for (let res = 0; res < result.length; res++) {
 				let div = document.createElement('div');
 				let h4 = document.createElement('h4');
