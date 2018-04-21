@@ -32,11 +32,29 @@ window.onload = function () {
 				div.appendChild(p);
 				div.appendChild(span);
 				div.classList.add('listItem');
+				div.setAttribute('data-id', result[res].note_id)
 				document.querySelector('.historyList').appendChild(div);
 			}
 		}
 	});
 }
+document.querySelector('.historyList').addEventListener('click', (e) => {
+	let event = window.event;
+	let target = event.target;
+	let data = {
+		note_id: target.parentNode.getAttribute('data-id')
+	}
+	if (target.parentNode.getAttribute('data-id')) {
+		ajax('post', 'http://' + ipAddress + '/replaceNote', JSON.stringify(data), function (data) {
+			if (data.srcElement.readyState == 4) {
+				// console.log(eval(data.srcElement.response)[0])
+				document.querySelector('iframe').src = eval(data.srcElement.response)[0].note_path;
+				document.getElementById('fileName').innerHTML = eval(data.srcElement.response)[0].note_name.split('.')[0]
+			}	
+			// console.log(document.querySelector('iframe').src == 1);
+		})
+	}
+});
 window.onresize = function () {
 	document.querySelector('.container').style.height = height + 'px';
 }
@@ -62,7 +80,7 @@ document.querySelector('#save').addEventListener('click', () => {
 		fileName: fileName
 	}
 	data = JSON.stringify(data);
-	ajax('post', 'http://' + ipAddress + '/submit',data, function (data) {
+	ajax('post', 'http://' + ipAddress + '/submit', data, function (data) {
 		if (data.srcElement.readyState == 4) {
 			console.log(data.srcElement.response);
 		}

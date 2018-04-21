@@ -21,12 +21,11 @@ app.get('/index.html', function (req, res) {
     res.send(__dirname + "/" + "index.html");
 });
 app.post('/submit', urlencodeParser, function (req, res) {
-    console.log(req.body);
     var writeContent = '<!DOCTYPE html><html>' + req.body.content + '</html>';
     var sqlWords = {
         note_id: null,
         note_name: req.body.fileName + '.html',
-        note_path: 'http://' + ipAddress + '/note/' + req.body.fileName + '.html',
+        note_path: 'http://' + ipAddress + 'server/note/' + req.body.fileName + '.html',
         user_id: 1,
         note_date: new Date().toDateString()
     }
@@ -36,7 +35,6 @@ app.post('/submit', urlencodeParser, function (req, res) {
                 res.json({
                     failed: 'Writing file is fialed'
                 });
-                console.log(err)
                 return;
             }
             else {
@@ -60,6 +58,12 @@ app.post('/submit', urlencodeParser, function (req, res) {
 app.post('/selectAllNote', urlencodeParser, function (req, res) {
     connection.query('select * from note',function(err,result){
         res.json(eval(result))
+    })
+})
+app.post('/replaceNote', urlencodeParser, function (req, res) {
+    connection.query('select note_path,note_name from note where note_id='+req.body.note_id,function(err,result){
+        res.json(eval(result))
+        // console.log(eval(result)[0].note_path)
     })
 })
 var server = app.listen(3010, function () {
