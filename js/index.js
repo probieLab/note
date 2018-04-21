@@ -1,21 +1,24 @@
 const height = window.innerHeight;
 const width = window.innerWidth;
 const ipAddress = '127.0.0.1:3010';
-const xmlHTTP = new XMLHttpRequest();
 document.querySelector('.container').style.height = height - 5 + 'px';
+function ajax(method, url, data, callback) {
+	const xmlHTTP = new XMLHttpRequest();
+	xmlHTTP.open(method, url, true);
+	xmlHTTP.setRequestHeader("Content-type", "application/json;charset=UTF-8");
+	xmlHTTP.send(data);
+	xmlHTTP.onreadystatechange = callback
+}
 window.onload = function () {
 	document.querySelector('.container').style.height = height - 5 + 'px';
 	if (!(localStorage.cache == '' || !localStorage.cache)) {
 		document.querySelector('iframe').contentDocument.documentElement.children[1].children[0].innerHTML = this.localStorage.cache;
 	}
-	xmlHTTP.open('post', 'http://' + ipAddress + '/selectAllNote', true);
-	xmlHTTP.setRequestHeader("Content-type", "application/json;charset=UTF-8");
-	xmlHTTP.send(null);
-	xmlHTTP.onreadystatechange = (data) => {
-		if (xmlHTTP.readyState == 4) {
+	ajax('post', 'http://' + ipAddress + '/selectAllNote', null, function (data) {
+		if (data.srcElement.readyState == 4) {
 			let result = data.srcElement.response;
 			result = eval(result);
-			console.log(result)			
+			console.log(result)
 			// result = JSON.parse(result)
 			for (let res = 0; res < result.length; res++) {
 				let div = document.createElement('div');
@@ -32,17 +35,24 @@ window.onload = function () {
 				document.querySelector('.historyList').appendChild(div);
 			}
 		}
-		// <div class="listItem">
-		// 		<h4>passage titel</h4>
-		// 	    <p>describe</p>
-		//  	<span>time</span>
-		// </div>
-
-	}
+	});
 }
 window.onresize = function () {
 	document.querySelector('.container').style.height = height + 'px';
 }
+
+/*
+*
+*底部工具栏事件实现
+*/
+document.querySelector('#cache').addEventListener('click', () => {//将文本内容暂存在本地缓存中
+	// document.querySelector('#mask').classList.add('maskAction');
+	let iframeContent = document.querySelector('iframe').contentDocument.documentElement.children[1].children[0].innerHTML;
+	localStorage.cache = iframeContent;
+}, false)
+document.getElementById('cleanCache').addEventListener('click', () => {//清楚本地缓存
+	localStorage.cache = '';
+})
 document.querySelector('#save').addEventListener('click', () => {
 	// document.querySelector('#mask').classList.add('maskAction');
 	let iframeContent = document.querySelector('iframe').contentDocument.documentElement.innerHTML;
@@ -52,24 +62,19 @@ document.querySelector('#save').addEventListener('click', () => {
 		fileName: fileName
 	}
 	data = JSON.stringify(data);
-	xmlHTTP.open('post', 'http://' + ipAddress + '/submit', true);
-	xmlHTTP.setRequestHeader("Content-type", "application/json;charset=UTF-8")
-	xmlHTTP.send(data);
-	xmlHTTP.onreadystatechange = (data) => {
-		console.log(data.srcElement.response);
-	}
+	ajax('post', 'http://' + ipAddress + '/submit',data, function (data) {
+		if (data.srcElement.readyState == 4) {
+			console.log(data.srcElement.response);
+		}
+	})
 }, false)
-document.querySelector('#cache').addEventListener('click', () => {
-	// document.querySelector('#mask').classList.add('maskAction');
-	let iframeContent = document.querySelector('iframe').contentDocument.documentElement.children[1].children[0].innerHTML;
-	localStorage.cache = iframeContent;
-}, false)
-document.getElementById('cleanCache').addEventListener('click', () => {
-	localStorage.cache = '';
-})
+// 
+// 
+// 
+// 为工具栏按键绑定事件
 document.getElementById('creatDrawArea').addEventListener('click', function () {
-	let iframe = document.querySelector('iframe').contentWindow;
-	iframe.postMessage('test_1', 'http://' + ipAddress + '/classNote/index.html');
+	let iframe = document.querySelector('iframe').contentWindow;//获取iframe窗口对象
+	iframe.postMessage('test_1', 'http://' + ipAddress + '/classNote/index.html');//发送消息
 })
 document.getElementById('creatCodeArea').addEventListener('click', function () {
 	let iframe = document.querySelector('iframe').contentWindow;
