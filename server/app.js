@@ -25,7 +25,7 @@ app.post('/submit', urlencodeParser, function (req, res) {
     var sqlWords = {
         note_id: null,
         note_name: req.body.fileName + '.html',
-        note_path: 'http://' + ipAddress + 'server/note/' + req.body.fileName + '.html',
+        note_path: 'http://' + ipAddress + '/server/note/' + req.body.fileName + '.html',
         user_id: 1,
         note_date: new Date().toDateString()
     }
@@ -38,11 +38,16 @@ app.post('/submit', urlencodeParser, function (req, res) {
                 return;
             }
             else {
-                connection.query('insert into note set ?', sqlWords, function (err, result) {
-                    res.json({
-                        success: 1
-                    });
-                    return result;
+                fs.exists('./note/' + req.body.fileName + '.html',function(flag){
+                    if(!flag){
+                        connection.query('insert into note set ?', sqlWords, function (err, result) {
+                            res.json({
+                                success: 1
+                            });
+                            return result;
+                        })
+                        console.log(flag)
+                    }
                 })
                 return;
             }

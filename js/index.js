@@ -12,7 +12,8 @@ function ajax(method, url, data, callback) {
 window.onload = function () {
 	document.querySelector('.container').style.height = height - 5 + 'px';
 	if (!(localStorage.cache == '' || !localStorage.cache)) {
-		document.querySelector('iframe').contentDocument.documentElement.children[1].children[0].innerHTML = this.localStorage.cache;
+		document.querySelector('iframe').contentDocument.documentElement.children[1].children[0].innerHTML = localStorage.cache;
+		document.getElementById('fileName').innerHTML = localStorage.title;
 	}
 	ajax('post', 'http://' + ipAddress + '/selectAllNote', null, function (data) {
 		if (data.srcElement.readyState == 4) {
@@ -27,7 +28,7 @@ window.onload = function () {
 				let span = document.createElement('span');
 				span.innerHTML = result[res].note_date;
 				h4.innerHTML = result[res].note_name.split('.')[0];
-				p.innerHTML = 'describe';
+				p.innerHTML = 'Edit time';
 				div.appendChild(h4);
 				div.appendChild(p);
 				div.appendChild(span);
@@ -67,6 +68,7 @@ document.querySelector('#cache').addEventListener('click', () => {//将文本内
 	// document.querySelector('#mask').classList.add('maskAction');
 	let iframeContent = document.querySelector('iframe').contentDocument.documentElement.children[1].children[0].innerHTML;
 	localStorage.cache = iframeContent;
+	localStorage.title = document.getElementById('fileName').innerHTML;
 }, false)
 document.getElementById('cleanCache').addEventListener('click', () => {//清楚本地缓存
 	localStorage.cache = '';
