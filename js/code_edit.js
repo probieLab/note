@@ -5,16 +5,16 @@ function createCodeArea(){
 	this.submitCode.id = 'submitCode';
 	this.submitCode.innerHTML = 'Submit Code';
 	this.submitCode.classList.add('btn');
-	this.pre = document.createElement('pre');
-	this.pre.style.width = '100%';
+	// this.pre = document.createElement('pre');
+	// this.pre.style.width = '100%';
 	this.nextArea.style.minHeight = '24px';
 	this.codeArea.setAttribute('contenteditable', 'false');
-	this.pre.setAttribute('contenteditable','true');
-	this.codeArea.appendChild(this.pre);	
-	this.codeArea.appendChild(this.submitCode);
+	// this.pre.setAttribute('contenteditable','true');
+	// this.codeArea.appendChild(this.pre);	
 	document.querySelector('.passageEditArea').appendChild(this.codeArea);
 	document.querySelector('.passageEditArea').appendChild(this.nextArea);
-	var myCodeMirror = CodeMirror(this.pre);
+	var myCodeMirror = CodeMirror(this.codeArea);
+	this.codeArea.appendChild(this.submitCode);	
 	this.codeArea.addEventListener('click',function(){
 		let event = window.event;
 		let target = event.target;
