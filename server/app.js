@@ -39,7 +39,7 @@ app.post('/submit', urlencodeParser, function (req, res) {
             }
             else {
                 fs.exists('./note/' + req.body.fileName + '.html',function(flag){
-                    if(flag){
+                    if(!flag){
                         connection.query('insert into note set ?', sqlWords, function (err, result) {
                             res.json({
                                 success: 1
