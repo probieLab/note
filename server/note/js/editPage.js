@@ -1,6 +1,6 @@
-document.querySelector('body').style.height = window.parent.innerHeight * 0.76 - 5 + 'px'
+document.querySelector('body').style.height = window.parent.innerHeight*0.76 + 'px'
 window.onresize = () => {
-	document.querySelector('body').style.height = window.parent.innerHeight * 0.76 - 5 + 'px'
+	document.querySelector('body').style.height = window.parent.innerHeight*0.76 + 'px'
 }
 window.addEventListener('message', resolve, false);
 var oldObj;
