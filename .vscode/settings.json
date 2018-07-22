@@ -1,0 +1,24 @@
+{
+    "editor.tabSize": 2,
+    // Uses the legacy module resolving.
+    "eslint._legacyModuleResolve": false,
+    // Turns auto fix on save on or off.
+    "eslint.autoFixOnSave": false,
+    // Controls whether eslint is enabled for JavaScript files or not.
+    "eslint.enable": true,
+    // A path added to NODE_PATH when resolving the eslint module.
+    "eslint.nodePath": null,
+    // The eslint options object to provide args normally passed to eslint when executed from a command line (see http://eslint.org/docs/developer-guide/nodejs-api#cliengine).
+    "eslint.options": {},
+    // The package manager you use to install node modules.
+    "eslint.packageManager": "npm",
+    // Controls whether a task for linting the whole workspace will be available.
+    "eslint.provideLintTask": false,
+    // Run the linter on save (onSave) or on type (onType)
+    "eslint.run": "onType",
+    // An array of language ids which should be validated by ESLint
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact"
+    ],
+}
