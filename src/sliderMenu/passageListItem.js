@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { style } from './passageListStyles/itemStyle'
 export default class PassageListItem extends Component {
     constructor(props) {
         super(props)
         this.state = {
             action: 0
         }
+        console.log(style);
     }
     action = (e) => {
         this.setState({
@@ -16,7 +18,7 @@ export default class PassageListItem extends Component {
     }
     render() {
         return (
-            <div key={this.props.itemKey} className={(this.state.action === 1)?'itemAction':''}>
+            <div key={this.props.itemKey} style={style.itemAction}>
                 <h4>Passage Title</h4>
                 <p></p>
                 <div className="tools">
