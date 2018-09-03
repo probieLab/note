@@ -1,0 +1,22 @@
+.tools{
+  display: absolute;
+  height: 100%;
+  border-right:1px solid rgb(56, 56, 56); 
+  width: 11.7%;
+  min-width: 40px;
+  z-index: 10;
+  background-color: rgba(22, 22, 22);
+}
+.toolsBarBox{
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid rgb(56, 56, 56);
+  color: #eee;
+  cursor: pointer;
+  margin: 5px;
+  word-wrap: break-word;
+}

@@ -1,0 +1,79 @@
+.listContainer{
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 5;
+  overflow-x: hidden;
+  background-color: rgba(22, 22, 22);
+}
+.listContainer h2{
+  color: #eee;
+  border-bottom: rgb(56,56,56) 1px solid;
+  padding-bottom: 8px;  
+  padding-left:8px; 
+}
+.takeup{
+  animation: takeUpList 600ms;
+}
+.takeupBtnBox{
+  height: auto;
+  width: 100% ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  position: absolute;
+  bottom: 10px;
+}
+.takeupBtn{
+  height: 34px;
+  width:34px;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  color: #eee;
+  background-color: #222;
+  border-radius: 17px;
+  border: solid 1px #eee;
+  outline: none;
+  cursor: pointer;
+}
+.hidden{
+  display: none;
+  transform: translateX(-100%);
+}
+.shwolist{
+  animation: showList 600ms;
+}
+@keyframes takeUpList{
+  0%{
+    transform: translateX(0%);
+  }
+  100%{
+    transform: translateX(-100%);
+  }
+}
+@-webkit-keyframes takeUpList{
+  from{
+    transform: translateX(0%);
+  }
+  to{
+    transform: translateX(-100%);
+  }
+}
+@keyframes showList{
+  0%{
+    transform: translateX(-100%);
+  }
+  100%{
+    transform: translateX(0%);
+  }
+}
+@-webkit-keyframes showList{
+  from{
+    transform: translateX(-100%);
+  }
+  to{
+    transform: translateX(0%);
+  }
+}
